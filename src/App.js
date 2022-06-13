@@ -32,7 +32,21 @@ function App() {
   useEffect(() => {
     fetchImages();
   }, []);
-
+  useEffect(() => {
+    const event =window.addEventListener('scroll',()=>{
+      // console.log(`inner height ${window.innerHeight}`)
+      // console.log(`scrollY ${window.scrollY}`)
+      // console.log(`body height ${document.body.scrollHeight}`)
+      let innerheight=window.innerHeight+window.scrollY
+      let scrollHeight=document.body.scrollHeight
+      if(!loading && innerheight>=scrollHeight-20){
+        console.log('working');
+      }
+    })
+    return () => {
+      window.removeEventListener('scroll',event)
+    };
+  }, []);
   return (
     <main>
       <section className="search">
@@ -46,7 +60,6 @@ function App() {
       <section className="photos">
         <div className="photos-center">
           {photos?.map((photo) => {
-            console.log(photo);
             return <Photo key={photo.id} {...photo} />;
           })}
         </div>

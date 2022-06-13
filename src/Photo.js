@@ -9,7 +9,7 @@ const Photo = ({urls:{regular},alt_description,likes,user:{name,profile_url,prof
           <h4>{name}</h4>
           <p>{likes} Likes</p>
         </div>
-        <a href={profile_url}>
+        <a  href={profile_url}>
           <img src={medium} alt={name}  className="user-img"/>
         </a>
       </div>  
