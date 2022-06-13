@@ -1,7 +1,3 @@
-// Access key
-// qi_g9Ep6XHt-2FuHXeq5NTyRsqhM1iDuqLdO2u_p0jM
-// sceret key
-// AtH_z3xOKNmbDXV_wCCOcnFScOMkT7wjDp6mXj31jUQ
 
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
@@ -34,9 +30,6 @@ function App() {
   }, []);
   useEffect(() => {
     const event =window.addEventListener('scroll',()=>{
-      // console.log(`inner height ${window.innerHeight}`)
-      // console.log(`scrollY ${window.scrollY}`)
-      // console.log(`body height ${document.body.scrollHeight}`)
       let innerheight=window.innerHeight+window.scrollY
       let scrollHeight=document.body.scrollHeight
       if(!loading && innerheight>=scrollHeight-20){
