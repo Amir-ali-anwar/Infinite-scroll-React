@@ -10,19 +10,33 @@ function App() {
   const [loading, SetLoading] = useState(false);
   const [photos, SetPhotos] = useState([]);
   const [page, setPage] = useState(1);
+  const [query,Setquery]=useState('')
   const handleSubmit = (e) => {
     e.preventDefault();
   };
   const fetchImages = async () => {
     let url;
     let perpage = `&page=${page}`;
-    url = `${mainUrl}${clientID}${perpage}`;
+    let urlQuery=`&query=${query}`
+    if(query){
+      url = `${searchUrl}${clientID}${perpage}${urlQuery}`;
+      
+    }else{
+      
+      url = `${mainUrl}${clientID}${perpage}`;
+    }
     try {
       SetLoading(true);
       const respose = await fetch(url);
       const data = await respose.json();
       SetPhotos((oldPhotos)=>{
-        return [...oldPhotos,...data]
+        if(query){
+          return [...oldPhotos,...data.results]
+
+        }else{
+
+          return [...oldPhotos,...data]
+        }
       })
       SetLoading(false);
     } catch (error) {
@@ -31,7 +45,7 @@ function App() {
   };
   useEffect(() => {
     fetchImages();
-  }, [page]);
+  }, [page,query]);
   useEffect(() => {
     const event =window.addEventListener('scroll',()=>{
       let innerheight=window.innerHeight+window.scrollY
@@ -50,7 +64,7 @@ function App() {
     <main>
       <section className="search">
         <form className="search-form">
-          <input type="text" placeholder="search" className="form-input" />
+          <input type="text" placeholder="search" className="form-input" value={query} onChange={(e)=>Setquery(e.target.value)} />
           <button className="submit-btn" onClick={handleSubmit}>
             <FaSearch />
           </button>
